@@ -39,7 +39,7 @@ const combinedChart = new Chart(combinedCtx, {
                 type: 'time',
                 time: {
                     unit: 'second', // unidade em segundos
-                    stepSize: 10, // exibir a cada 10 segundos
+                    stepSize: 1, // exibir a cada 10 segundos
                     tooltipFormat: 'dd/MM/yyyy HH:mm:ss', // Tooltip ao passar o mouse
                     displayFormats: {
                         minute: 'HH:mm:ss', // Eixo X
@@ -70,20 +70,13 @@ const combinedChart = new Chart(combinedCtx, {
     }
 });
 
-// ✅ Função para converter timestamp UTC para horário de Brasília
-function converterParaHorarioBrasilia(timestampUTC) {
-    const dataUTC = new Date(timestampUTC);
-    // Subtrai 3 horas para ajustar para UTC-3 (Brasília)
-    return new Date(dataUTC.getTime() - 3 * 60 * 60 * 1000);
-}
-
 // ✅ Função para atualizar os gráficos com os dados mais recentes
 function fetchData() {
     fetch('https://coletor-de-tempo.vercel.app/api')
         .then(response => response.json())
         .then(data => {
             // Converte timestamp do banco para horário de Brasília
-            const dataHoraBrasilia = converterParaHorarioBrasilia(data.timestamp);
+            const dataHoraBrasilia = data.timestamp;
 
             const temperature = data.temperatura;
             const humidity = data.umidade;
@@ -106,7 +99,7 @@ function fetchData() {
 }
 
 // Atualizar os dados a cada 10 segundos
-setInterval(fetchData, 10000);
+setInterval(fetchData, 1000);
 
 // Chamada inicial
 fetchData();
