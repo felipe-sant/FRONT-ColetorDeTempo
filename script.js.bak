@@ -42,8 +42,8 @@ const combinedChart = new Chart(combinedCtx, {
                     stepSize: 10, // exibir a cada 10 segundos
                     tooltipFormat: 'dd/MM/yyyy HH:mm:ss', // Tooltip ao passar o mouse
                     displayFormats: {
-                        minute: 'HH:mm:ss', // Eixo X
-                        second: 'HH:mm:ss'
+                        minute: 'dd/MM HH:mm:ss', // Eixo X
+                        second: 'dd/MM HH:mm:ss'
                     }
                 },
                 ticks: {
