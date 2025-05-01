@@ -1,26 +1,9 @@
 import Temperatura from "../types/Temperatura";
 import temperaturaOption from "./options/temperaturaOption";
+import css from "../styles/components/grafico.module.css"
 import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function GraficoTemperatura(props: { temperatura: Temperatura[] }) {
     const data = {
@@ -37,7 +20,7 @@ function GraficoTemperatura(props: { temperatura: Temperatura[] }) {
     }
 
     return (
-        <div style={{ width: "700px", height: "400px" }}>
+        <div className={css.grafico}>
             <Line data={data} options={temperaturaOption} />
         </div>
     )

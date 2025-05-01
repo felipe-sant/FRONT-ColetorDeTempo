@@ -1,27 +1,9 @@
-
-import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-import Umidade from '../types/Umidade';
 import umidadeOption from './options/umidadeOption';
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+import Umidade from '../types/Umidade';
+import css from "../styles/components/grafico.module.css"
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function GraficoUmidade(props: { umidade: Umidade[] }) {
     const data = {
@@ -38,7 +20,7 @@ function GraficoUmidade(props: { umidade: Umidade[] }) {
     }
 
     return (
-        <div style={{ width: "700px", height: "400px" }}>
+        <div className={css.grafico}>
             <Line data={data} options={umidadeOption} />
         </div>
     )
