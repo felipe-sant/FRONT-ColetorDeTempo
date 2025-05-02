@@ -3,10 +3,21 @@ import Temperatura from "../types/Temperatura"
 import GraficoTemperatura from "../components/GraficoTemperatura"
 import Filtro from "../types/Filtro"
 import css from "../styles/pages/home.module.css"
+import calendar from "../images/calendar.svg"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 function Home() {
     const [filtroType, setFiltroType] = useState<Filtro>("day")
     const [temperatura, setTemperatura] = useState<Temperatura[]>([])
+    const [data, setData] = useState<string>(new Date().toLocaleDateString())
+
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+    const handleDateChange = (date: Date | null) => {
+        setSelectedDate(date);
+    };
 
     const temperaturaDay: Temperatura[] = [
         { timestamp: "01:00", value: 10 },
@@ -121,7 +132,15 @@ function Home() {
                         onClick={setDay}
                     >Day
                         <div className={css.tab}>
-                            <input type="date" className={css.input} />
+                            <DatePicker
+                                selected={selectedDate}
+                                onChange={handleDateChange}
+                                dateFormat="dd/MM"
+                                placeholderText="Data"
+                                maxDate={new Date()}
+                                wrapperClassName={css.input}
+                            />
+                            <img src={calendar} className={css.calendar} />
                         </div>
                     </div>
                     <div

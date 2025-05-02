@@ -39,6 +39,7 @@
     user-select: none;
     transition: all 0.2s ease-in-out;
     position: relative;
+    z-index: 2
 }
 
 .filtro__select:hover {
@@ -89,16 +90,32 @@
     padding: 10px;
 }
 
-.filtro__select > .tab > .input {
+.filtro__select > .tab > .input input {
     border: none;
     height: 0;
+    cursor: pointer;
+    width: 100%;
+    z-index: 999;
+    padding: 0 10px;
 }
 
-.filtro__select__active > .tab > .input {
+.filtro__select__active > .tab > .input input {
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 10px;
     height: auto;
-    width: 100%;
+}
+
+.filtro__select > .tab > .calendar {
+    width: 16px;
+    height: 0px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    pointer-events: none;
+}
+
+.filtro__select__active > .tab > .calendar {
+    height: 16px;
 }
 
 .container {
