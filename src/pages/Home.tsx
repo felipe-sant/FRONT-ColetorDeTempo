@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../store/store"
 import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear, setSeachType } from "../store/slices/graficos"
 import GraficoUmidade from "../components/GraficoUmidade";
-import BackendConnection from "../services/BackendConnection";
-import getTemperaturaDaily from "../services/asyncThunk/getTemperaturaDaily";
+import getTemperaturaDaily from "../services/asyncThunk/getDataDaily";
 import { useEffect } from "react";
 
 function Home() {
@@ -51,7 +50,7 @@ function Home() {
                                 maxDate={new Date()}
                                 wrapperClassName={css.input}
                             />
-                            <img src="images/calendar.svg" className={css.calendar} />
+                            <img src="images/calendar.svg" className={css.calendar} alt="" />
                         </div>
                     </div>
                     <div
@@ -94,7 +93,7 @@ function Home() {
                 </div>
                 <div className={css.container}>
                     {temperatura.length > 0 ? <GraficoTemperatura temperatura={temperatura} /> : <></>}
-                    {/* <GraficoUmidade umidade={umidade} /> */}
+                    {umidade.length > 0 ? <GraficoUmidade umidade={umidade} /> : <></>}
                 </div>
             </main>
             <footer className={css.footer}></footer>

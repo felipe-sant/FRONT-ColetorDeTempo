@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import Meses from "../../enum/meses"
-import getTemperaturaDaily from "../../services/asyncThunk/getTemperaturaDaily"
+import getDataDaily from "../../services/asyncThunk/getDataDaily"
 
 const initialState = {
     filtroType: "",
@@ -44,11 +44,13 @@ const graficosSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getTemperaturaDaily.rejected, (state, action) => {
+        builder.addCase(getDataDaily.rejected, (state, action) => {
             state.temperatura = []
+            state.umidade = []
         })
-        builder.addCase(getTemperaturaDaily.fulfilled, (state, action) => {
-            state.temperatura = action.payload
+        builder.addCase(getDataDaily.fulfilled, (state, action) => {
+            state.temperatura = action.payload.temperatura
+            state.umidade = action.payload.umidade
         })
     }
 })
