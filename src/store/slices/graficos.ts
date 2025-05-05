@@ -3,11 +3,12 @@ import temperaturaWeek from "../../test/temperaturaWeek"
 import temperaturaDay from "../../test/temperaturaDay"
 import temperaturaMonth from "../../test/temperaturaMonth"
 import temperaturaYear from "../../test/temperaturaYear"
+import Meses from "../../enum/meses"
 
 const initialState = {
     filtroType: "day",
     daySelected: new Date(),
-    monthSelected: new Date().getMonth() + 1,
+    monthSelected: { value: new Date().getMonth()+1, label: Meses[new Date().getMonth()+1] },
     temperatura: [],
     umidade: [],
 }
@@ -18,6 +19,9 @@ const graficosSlice = createSlice({
     reducers: {
         handleDateChange: (state, action) => {
             state.daySelected = action.payload
+        },
+        handleMonthChange: (state, action) => {
+            state.monthSelected = action.payload
         },
         setFilterDay: (state) => {
             state.filtroType = "day"
@@ -44,6 +48,7 @@ const graficosSlice = createSlice({
 
 export const { 
     handleDateChange, 
+    handleMonthChange,
     setFilterDay, 
     setFilterWeek, 
     setFilterMonth, 

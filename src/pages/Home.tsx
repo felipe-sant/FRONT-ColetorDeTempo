@@ -1,10 +1,11 @@
 import GraficoTemperatura from "../components/GraficoTemperatura"
 import css from "../styles/pages/home.module.css"
 import DatePicker from "react-datepicker";
+import Select from 'react-select';
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../store/store"
-import { handleDateChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear } from "../store/slices/graficos"
+import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear } from "../store/slices/graficos"
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -45,8 +46,27 @@ function Home() {
                         className={filtroType === "month" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
                         onClick={() => dispatch(setFilterMonth())}
                     >Month
-                        <div className={css.tab}>
-
+                        <div className={css.tab}> 
+                            <Select 
+                                onChange={(e) => dispatch(handleMonthChange(e))}
+                                value={monthSelected}
+                                options={[
+                                    { value: 1, label: "January" },
+                                    { value: 2, label: "February" },
+                                    { value: 3, label: "March" },
+                                    { value: 4, label: "April" },
+                                    { value: 5, label: "May" },
+                                    { value: 6, label: "June" },
+                                    { value: 7, label: "July" },
+                                    { value: 8, label: "August" },
+                                    { value: 9, label: "September" },
+                                    { value: 10, label: "October" },
+                                    { value: 11, label: "November" },
+                                    { value: 12, label: "December" }
+                                ]}
+                                className={css.select}
+                                components={{ DropdownIndicator: () => null }}
+                            />
                         </div>
                     </div>
                     <div
