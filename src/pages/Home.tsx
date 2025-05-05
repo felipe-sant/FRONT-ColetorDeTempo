@@ -5,7 +5,11 @@ import Select from 'react-select';
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../store/store"
-import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear } from "../store/slices/graficos"
+import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear, setSeachType } from "../store/slices/graficos"
+import GraficoUmidade from "../components/GraficoUmidade";
+import BackendConnection from "../services/BackendConnection";
+import getTemperaturaDaily from "../services/asyncThunk/getTemperaturaDaily";
+import { useEffect } from "react";
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -14,8 +18,20 @@ function Home() {
         daySelected,
         monthSelected,
         temperatura,
-        umidade
+        umidade,
+        searchType
     } = useSelector((state: RootState) => state.grafico)
+
+    useEffect(() => {
+        dispatch(setFilterDay())
+    }, [])
+
+    useEffect(() => {
+        if (searchType === "day") {
+            dispatch(getTemperaturaDaily(daySelected))
+            dispatch(setSeachType("none"))
+        }
+    })
 
     return (
         <>
@@ -77,8 +93,8 @@ function Home() {
                     </div>
                 </div>
                 <div className={css.container}>
-                    <GraficoTemperatura temperatura={temperatura} />
-                    {/* <GraficoUmidade umidade={umidades} /> */}
+                    {temperatura.length > 0 ? <GraficoTemperatura temperatura={temperatura} /> : <></>}
+                    {/* <GraficoUmidade umidade={umidade} /> */}
                 </div>
             </main>
             <footer className={css.footer}></footer>

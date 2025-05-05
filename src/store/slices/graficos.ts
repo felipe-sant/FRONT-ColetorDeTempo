@@ -1,16 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
-import temperaturaWeek from "../../test/temperaturaWeek"
-import temperaturaDay from "../../test/temperaturaDay"
-import temperaturaMonth from "../../test/temperaturaMonth"
-import temperaturaYear from "../../test/temperaturaYear"
 import Meses from "../../enum/meses"
+import getTemperaturaDaily from "../../services/asyncThunk/getTemperaturaDaily"
 
 const initialState = {
-    filtroType: "day",
+    filtroType: "",
     daySelected: new Date(),
     monthSelected: { value: new Date().getMonth()+1, label: Meses[new Date().getMonth()+1] },
     temperatura: [],
     umidade: [],
+    teste: "",
+    searchType: "day"
 }
 
 const graficosSlice = createSlice({
@@ -19,30 +18,38 @@ const graficosSlice = createSlice({
     reducers: {
         handleDateChange: (state, action) => {
             state.daySelected = action.payload
+            state.searchType = "day"
         },
         handleMonthChange: (state, action) => {
             state.monthSelected = action.payload
         },
         setFilterDay: (state) => {
             state.filtroType = "day"
-            state.temperatura = temperaturaDay // temporary data for testing
-            // getTemperaturaDay(state.daySelected)
+            state.searchType = "day"
         },
         setFilterWeek: (state) => {
             state.filtroType = "week"
-            state.temperatura = temperaturaWeek // temporary data for testing
             // getTemperaturaWeek()
         },
         setFilterMonth: (state) => {
             state.filtroType = "month"
-            state.temperatura = temperaturaMonth // temporary data for testing
-            // getTemperaturaMonth()
+            // getTemperaturaMonth(state.monthSelected.value)
         },
         setFilterYear: (state) => {
             state.filtroType = "year"
-            state.temperatura = temperaturaYear // temporary data for testing
             // getTemperaturaYear()
+        },
+        setSeachType: (state, action) => {
+            state.searchType = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getTemperaturaDaily.rejected, (state, action) => {
+            state.temperatura = []
+        })
+        builder.addCase(getTemperaturaDaily.fulfilled, (state, action) => {
+            state.temperatura = action.payload
+        })
     }
 })
 
@@ -52,7 +59,8 @@ export const {
     setFilterDay, 
     setFilterWeek, 
     setFilterMonth, 
-    setFilterYear 
+    setFilterYear,
+    setSeachType
 } = graficosSlice.actions
 
 export default graficosSlice.reducer
