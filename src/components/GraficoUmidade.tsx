@@ -2,12 +2,16 @@ import umidadeOption from './options/umidadeOption';
 import css from "../styles/components/grafico.module.css"
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import UmidadeFormatada from '../types/UmidadeFormatada';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-function GraficoUmidade(props: { umidade: UmidadeFormatada[] }) {
+function GraficoUmidade(props: { umidade: any[] }) {
     const data = {
-        labels: props.umidade.map(um => um.hour.toString().padStart(2, "0")),
+        labels: props.umidade.map(um => {
+            if (um.day) {
+                return um.day
+            }
+            return um.hour.toString().padStart(2, "0")
+        }),
         datasets: [
             {
                 label: "Média",

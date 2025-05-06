@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../store/store"
 import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear, setSeachType } from "../store/slices/graficos"
 import GraficoUmidade from "../components/GraficoUmidade";
-import getTemperaturaDaily from "../services/asyncThunk/getDataDaily";
+import getDataDaily from "../services/asyncThunk/getDataDaily";
 import { useEffect, useState } from "react";
 import loadingImage from "../static/rotate.svg"
 import errorImage from "../static/error.svg"
+import getDataWeek from "../services/asyncThunk/getDataWeek";
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -32,7 +33,10 @@ function Home() {
 
     useEffect(() => {
         if (searchType === "day") {
-            dispatch(getTemperaturaDaily(daySelected))
+            dispatch(getDataDaily(daySelected))
+            dispatch(setSeachType("none"))
+        } else if (searchType === "week") {
+            dispatch(getDataWeek())
             dispatch(setSeachType("none"))
         }
     })

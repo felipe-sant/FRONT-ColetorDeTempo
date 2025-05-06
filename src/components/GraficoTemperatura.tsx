@@ -5,9 +5,14 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import TemperaturaFormatada from "../types/TemperaturaFormatada";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-function GraficoTemperatura(props: { temperatura: TemperaturaFormatada[] }) {
+function GraficoTemperatura(props: { temperatura: any[] }) {
     const data = {
-        labels: props.temperatura.map(temp => temp.hour.toString().padStart(2, "0")),
+        labels: props.temperatura.map(temp => {
+            if (temp.day) {
+                return temp.day
+            }
+            return temp.hour.toString().padStart(2, "0")
+        }),
         datasets: [
             {
                 label: "Média",
