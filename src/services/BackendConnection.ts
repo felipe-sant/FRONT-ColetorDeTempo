@@ -2,7 +2,7 @@ import getRequest from "../functions/connection/getRequest";
 import formatDate from "../functions/utils/formatDate";
 
 class BackendConnection {
-    private static url = 'http://localhost:3030/api/';
+    private static url = 'https://coletor-de-tempo.vercel.app/api/';
 
     public static async getDataDaily(day?: Date): Promise<any> {
         try {

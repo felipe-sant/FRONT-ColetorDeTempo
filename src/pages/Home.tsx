@@ -8,7 +8,9 @@ import { AppDispatch, RootState } from "../store/store"
 import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear, setSeachType } from "../store/slices/graficos"
 import GraficoUmidade from "../components/GraficoUmidade";
 import getTemperaturaDaily from "../services/asyncThunk/getDataDaily";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import loadingImage from "../static/rotate.svg"
+import errorImage from "../static/error.svg"
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -18,6 +20,9 @@ function Home() {
         monthSelected,
         temperatura,
         umidade,
+        loading,
+        error,
+        errorMessage,
         searchType
     } = useSelector((state: RootState) => state.grafico)
 
@@ -34,7 +39,6 @@ function Home() {
 
     return (
         <>
-            <div className={css.line} />
             <main className={css.main}>
                 <div className={css.filtro}>
                     <div
@@ -57,6 +61,7 @@ function Home() {
                         className={filtroType === "week" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
                         onClick={() => dispatch(setFilterWeek())}
                     >Week</div>
+                    {/* 
                     <div
                         className={filtroType === "month" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
                         onClick={() => dispatch(setFilterMonth())}
@@ -66,18 +71,18 @@ function Home() {
                                 onChange={(e) => dispatch(handleMonthChange(e))}
                                 value={monthSelected}
                                 options={[
-                                    { value: 1, label: "January" },
-                                    { value: 2, label: "February" },
-                                    { value: 3, label: "March" },
-                                    { value: 4, label: "April" },
-                                    { value: 5, label: "May" },
-                                    { value: 6, label: "June" },
-                                    { value: 7, label: "July" },
-                                    { value: 8, label: "August" },
-                                    { value: 9, label: "September" },
-                                    { value: 10, label: "October" },
-                                    { value: 11, label: "November" },
-                                    { value: 12, label: "December" }
+                                    { value: 1, label: "Janeiro" },
+                                    { value: 2, label: "Fevereiro" },
+                                    { value: 3, label: "Março" },
+                                    { value: 4, label: "Abril" },
+                                    { value: 5, label: "Maio" },
+                                    { value: 6, label: "Junho" },
+                                    { value: 7, label: "Julho" },
+                                    { value: 8, label: "Agosto" },
+                                    { value: 9, label: "Setembro" },
+                                    { value: 10, label: "Octubro" },
+                                    { value: 11, label: "Novembro" },
+                                    { value: 12, label: "Dezembro" }
                                 ]}
                                 className={css.select}
                                 components={{ DropdownIndicator: () => null }}
@@ -89,14 +94,29 @@ function Home() {
                         onClick={() => dispatch(setFilterYear())}
                     >Year
                         <div className={css.aba}></div>
-                    </div>
+                    </div> 
+                    */}
                 </div>
                 <div className={css.container}>
-                    {temperatura.length > 0 ? <GraficoTemperatura temperatura={temperatura} /> : <></>}
-                    {umidade.length > 0 ? <GraficoUmidade umidade={umidade} /> : <></>}
+                    {loading || error ? <>
+                    </> : <>
+                        <GraficoTemperatura temperatura={temperatura} />
+                        <GraficoUmidade umidade={umidade} />
+                    </>}
                 </div>
+                {loading ? <>
+                    <div className={css.loading}>
+                        <img src={loadingImage} alt="" />
+                        <strong>Carregando...</strong>
+                    </div>
+                </> : <></>}
+                {error && !loading ? <>
+                    <div className={css.error}>
+                        <img src={errorImage} alt="" />
+                        <strong>{errorMessage} :(</strong>
+                    </div>
+                </> : <></>}
             </main>
-            <footer className={css.footer}></footer>
         </>
     )
 }
