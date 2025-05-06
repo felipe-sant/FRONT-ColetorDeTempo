@@ -1,5 +1,5 @@
 function formatDate(date: Date): string {
-    const localDate = date.toLocaleDateString().split("/")
+    const localDate = date.toDateString().split("/")
     const day = localDate[0]
     const month = localDate[1]
     const year = localDate[2]
