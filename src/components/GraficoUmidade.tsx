@@ -10,9 +10,23 @@ function GraficoUmidade(props: { umidade: UmidadeFormatada[] }) {
         labels: props.umidade.map(um => um.hour.toString().padStart(2, "0")),
         datasets: [
             {
-                label: "Umidade",
+                label: "Média",
                 data: props.umidade.map(um => um.data.mediaUmidade),
-                borderColor: "rgb(0, 123, 255)",
+                borderColor: "rgb(0, 127, 255)",
+                backgroundColor: "rgba(0, 0, 102, 0.2)",
+                tension: 0.4,
+            },
+            {
+                label: "Máxima",
+                data: props.umidade.map(um => um.data.maxUmidade),
+                borderColor: "rgba(66, 66, 135, 0.5)",
+                backgroundColor: "rgba(0, 0, 102, 0.2)",
+                tension: 0.4,
+            },
+            {
+                label: "Mínima",
+                data: props.umidade.map(um => um.data.minUmidade),
+                borderColor: "rgba(122, 187, 253, 0.5)",
                 backgroundColor: "rgba(0, 0, 102, 0.2)",
                 tension: 0.4,
             }

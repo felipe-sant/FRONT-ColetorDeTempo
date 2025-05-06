@@ -1,4 +1,3 @@
-import Temperatura from "../types/Temperatura";
 import temperaturaOption from "./options/temperaturaOption";
 import css from "../styles/components/grafico.module.css"
 import { Line } from 'react-chartjs-2';
@@ -11,9 +10,23 @@ function GraficoTemperatura(props: { temperatura: TemperaturaFormatada[] }) {
         labels: props.temperatura.map(temp => temp.hour.toString().padStart(2, "0")),
         datasets: [
             {
-                label: "Temperatura",
+                label: "Média",
                 data: props.temperatura.map(temp => temp.data.mediaTemperatura),
                 borderColor: "rgb(255, 0, 0)",
+                backgroundColor: "rgba(102, 0, 0, 0.2)",
+                tension: 0.4,
+            },
+            {
+                label: "Máxima",
+                data: props.temperatura.map(temp => temp.data.maxTemperatura),
+                borderColor: "rgba(127, 0, 0, 0.5)",
+                backgroundColor: "rgba(102, 0, 0, 0.2)",
+                tension: 0.4,
+            },
+            {
+                label: "Mínima",
+                data: props.temperatura.map(temp => temp.data.minTemperatura),
+                borderColor: "rgba(255, 127, 127, 0.5)",
                 backgroundColor: "rgba(102, 0, 0, 0.2)",
                 tension: 0.4,
             }
