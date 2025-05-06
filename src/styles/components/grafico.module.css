@@ -1,0 +1,38 @@
+.grafico {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 500px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1200px) {
+    .grafico {
+        width: 450px;
+        height: 270px;
+    }
+}
+
+@media (max-width: 992px) {
+    .grafico {
+        width: 400px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 895px) {
+    .grafico {
+        width: 350px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grafico {
+        width: 334px;
+        height: 200px;
+    }
+}
