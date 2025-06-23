@@ -2,7 +2,7 @@ import temperaturaOption from "./options/temperaturaOption";
 import css from "../styles/components/grafico.module.css"
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import TemperaturaFormatada from "../types/TemperaturaFormatada";
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function GraficoTemperatura(props: { temperatura: any[] }) {

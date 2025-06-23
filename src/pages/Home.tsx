@@ -1,14 +1,13 @@
 import GraficoTemperatura from "../components/GraficoTemperatura"
 import css from "../styles/pages/home.module.css"
 import DatePicker from "react-datepicker";
-import Select from 'react-select';
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../store/store"
-import { handleDateChange, handleMonthChange, setFilterDay, setFilterMonth, setFilterWeek, setFilterYear, setSeachType } from "../store/slices/graficos"
+import { handleDateChange, setFilterDay, setFilterWeek, setSeachType } from "../store/slices/graficos"
 import GraficoUmidade from "../components/GraficoUmidade";
 import getDataDaily from "../services/asyncThunk/getDataDaily";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import loadingImage from "../static/rotate.svg"
 import errorImage from "../static/error.svg"
 import getDataWeek from "../services/asyncThunk/getDataWeek";
@@ -18,7 +17,6 @@ function Home() {
     const {
         filtroType,
         daySelected,
-        monthSelected,
         temperatura,
         umidade,
         loading,
@@ -29,7 +27,7 @@ function Home() {
 
     useEffect(() => {
         dispatch(setFilterDay())
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if (searchType === "day") {
