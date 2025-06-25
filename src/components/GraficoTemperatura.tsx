@@ -41,6 +41,7 @@ function GraficoTemperatura(props: { temperatura: any[] }) {
     return (
         <div className={css.grafico}>
             <Line data={data} options={temperaturaOption} />
+            <div className={css.detalhe}>Temperatura</div>
         </div>
     )
 }

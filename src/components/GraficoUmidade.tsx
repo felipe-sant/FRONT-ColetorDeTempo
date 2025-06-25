@@ -40,6 +40,7 @@ function GraficoUmidade(props: { umidade: any[] }) {
     return (
         <div className={css.grafico}>
             <Line data={data} options={umidadeOption} />
+            <div className={css.detalhe}>Temperatura</div>
         </div>
     )
 }

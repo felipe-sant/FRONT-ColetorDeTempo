@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import loadingImage from "../static/rotate.svg"
 import errorImage from "../static/error.svg"
 import getDataWeek from "../services/asyncThunk/getDataWeek";
+import GraficoPressao from "../components/GraficoPressao";
+import GraficoCarbono from "../components/GraficoCarbono";
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -19,6 +21,8 @@ function Home() {
         daySelected,
         temperatura,
         umidade,
+        pressao,
+        carbono,
         loading,
         error,
         errorMessage,
@@ -46,7 +50,7 @@ function Home() {
                     <div
                         className={filtroType === "day" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
                         onClick={() => dispatch(setFilterDay())}
-                    >Day
+                    >Dia
                         <div className={css.tab}>
                             <DatePicker
                                 selected={daySelected}
@@ -59,10 +63,10 @@ function Home() {
                             <img src="images/calendar.svg" className={css.calendar} alt="" />
                         </div>
                     </div>
-                    <div
+                    {/* <div
                         className={filtroType === "week" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
                         onClick={() => dispatch(setFilterWeek())}
-                    >Week</div>
+                    >Week</div> */}
                     {/* 
                     <div
                         className={filtroType === "month" ? css.filtro__select + " " + css.filtro__select__active : css.filtro__select}
@@ -104,6 +108,8 @@ function Home() {
                     </> : <>
                         <GraficoTemperatura temperatura={temperatura} />
                         <GraficoUmidade umidade={umidade} />
+                        <GraficoPressao pressao={pressao} />
+                        <GraficoCarbono carbono={carbono} />
                     </>}
                 </div>
                 {loading ? <>

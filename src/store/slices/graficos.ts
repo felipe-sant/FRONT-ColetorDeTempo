@@ -9,6 +9,8 @@ const initialState = {
     monthSelected: { value: new Date().getMonth() + 1, label: Meses[new Date().getMonth() + 1] },
     temperatura: [],
     umidade: [],
+    pressao: [],
+    carbono: [],
     loading: true,
     error: false,
     errorMessage: "",
@@ -57,6 +59,8 @@ const graficosSlice = createSlice({
         builder.addCase(getDataDaily.rejected, (state) => {
             state.temperatura = []
             state.umidade = []
+            state.pressao = []
+            state.carbono = []
             state.error = true
             state.errorMessage = "Erro ao buscar dados"
             state.loading = false
@@ -78,9 +82,22 @@ const graficosSlice = createSlice({
                 state.errorMessage = "Erro ao buscar umidade"
                 return
             }
+            if (!action.payload.pressao) {
+                state.error = true
+                state.errorMessage = "Erro ao buscar pressão"
+                return
+            }
+            if (!action.payload.carbono) {
+                state.error = true
+                state.errorMessage = "Erro ao buscar carbono"
+                return
+            }
             state.error = false
+            console.log(action.payload)
             state.temperatura = action.payload.temperatura
             state.umidade = action.payload.umidade
+            state.pressao = action.payload.pressao
+            state.carbono = action.payload.carbono
         })
 
         builder.addCase(getDataWeek.pending, (state) => {
@@ -89,6 +106,8 @@ const graficosSlice = createSlice({
         builder.addCase(getDataWeek.rejected, (state) => {
             state.temperatura = []
             state.umidade = []
+            state.pressao = []
+            state.carbono = []
             state.error = true
             state.errorMessage = "Erro ao buscar dados"
             state.loading = false
@@ -113,6 +132,8 @@ const graficosSlice = createSlice({
             state.error = false
             state.temperatura = action.payload.temperatura
             state.umidade = action.payload.umidade
+            state.pressao = action.payload.pressao
+            state.carbono = action.payload.carbono
         })
     }
 })
