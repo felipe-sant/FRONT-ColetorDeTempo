@@ -6,7 +6,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 function GraficoChuva(props: { chuva: any[] }) {
     const data = {
-        label: props.chuva.map(ch => {
+        labels: props.chuva.map(ch => {
             if (ch.day) {
                 return ch.day;
             }
@@ -14,23 +14,9 @@ function GraficoChuva(props: { chuva: any[] }) {
         }),
         datasets: [
             {
-                label: "Média",
-                data: props.chuva.map(ch => ch.data.mediaChuva),
+                label: "Chuva",
+                data: props.chuva.map(ch => ch.data.chuva),
                 borderColor: "rgb(97, 255, 171)",
-                backgroundColor: "rgba(97, 255, 171, 0.2)",
-                tension: 0.4,
-            },
-            {
-                label: "Máxima",
-                data: props.chuva.map(ch => ch.data.maxChuva),
-                borderColor: "rgba(36, 159, 93, 0.5)",
-                backgroundColor: "rgba(97, 255, 171, 0.2)",
-                tension: 0.4,
-            },
-            {
-                label: "Mínima",
-                data: props.chuva.map(ch => ch.data.minChuva),
-                borderColor: "rgba(140, 249, 191, 0.5)",
                 backgroundColor: "rgba(97, 255, 171, 0.2)",
                 tension: 0.4,
             }
