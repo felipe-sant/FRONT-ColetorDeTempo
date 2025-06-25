@@ -11,6 +11,7 @@ const initialState = {
     umidade: [],
     pressao: [],
     carbono: [],
+    chuva: [],
     loading: true,
     error: false,
     errorMessage: "",
@@ -61,6 +62,7 @@ const graficosSlice = createSlice({
             state.umidade = []
             state.pressao = []
             state.carbono = []
+            state.chuva = []
             state.error = true
             state.errorMessage = "Erro ao buscar dados"
             state.loading = false
@@ -98,6 +100,7 @@ const graficosSlice = createSlice({
             state.umidade = action.payload.umidade
             state.pressao = action.payload.pressao
             state.carbono = action.payload.carbono
+            state.chuva = action.payload.chuva
         })
 
         builder.addCase(getDataWeek.pending, (state) => {
@@ -108,6 +111,7 @@ const graficosSlice = createSlice({
             state.umidade = []
             state.pressao = []
             state.carbono = []
+            state.chuva = []
             state.error = true
             state.errorMessage = "Erro ao buscar dados"
             state.loading = false
@@ -134,6 +138,7 @@ const graficosSlice = createSlice({
             state.umidade = action.payload.umidade
             state.pressao = action.payload.pressao
             state.carbono = action.payload.carbono
+            state.chuva = action.payload.chuva
         })
     }
 })

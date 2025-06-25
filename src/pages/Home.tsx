@@ -13,6 +13,7 @@ import errorImage from "../static/error.svg"
 import getDataWeek from "../services/asyncThunk/getDataWeek";
 import GraficoPressao from "../components/GraficoPressao";
 import GraficoCarbono from "../components/GraficoCarbono";
+import GraficoChuva from "../components/GraficoChuva";
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>()
@@ -23,6 +24,7 @@ function Home() {
         umidade,
         pressao,
         carbono,
+        chuva,
         loading,
         error,
         errorMessage,
@@ -110,6 +112,7 @@ function Home() {
                         <GraficoUmidade umidade={umidade} />
                         <GraficoPressao pressao={pressao} />
                         <GraficoCarbono carbono={carbono} />
+                        <GraficoChuva chuva={chuva} />
                     </>}
                 </div>
                 {loading ? <>
